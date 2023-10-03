@@ -1,0 +1,69 @@
+#!/bin/bash
+system_name="" 
+classification="" 
+desc="" 
+while getopts ":c:d:h" options; do
+  case ${options} in
+    h )
+	   echo "Usage: [-h] [-c|-u] value]"
+	   echo -e "c	Adding a classification for the application [Mandatory]\n 1 [Compilers], 2 [Optimized Librarires], 3 [Computational Chemistry], 4 [Bioscience], 5 [Bioscience], 6 [Data Science], 7 [Others]"
+	   echo "d	Adding a description for the application [Optional]"
+	   exit
+      ;;
+    c )
+      classification=$OPTARG
+      ;;
+    d )
+      desc=$OPTARG
+      ;;
+    \? )
+      echo "Invalid option: -$OPTARG" 1>&2
+      exit 1
+      ;;
+  esac 
+done 
+if [ -z ${classification} ]; then
+       echo "Entering app classification is a must" 1>&2
+      exit 1 
+elif [ ${classification} = 1 ]; then
+       classification="Compilers"
+elif [ ${classification} = 2 ]; then
+       classification="Optimized Librarires"
+elif [ ${classification} = 3 ]; then
+       classification="Computational Chemistry"
+elif [ ${classification} = 4 ]; then
+       classification="Bioscience"
+elif [ ${classification} = 5 ]; then
+       classification="Computational Fluid Dynamics"
+elif [ ${classification} = 6 ]; then
+       classification="Data Science"
+elif [ ${classification} = 7 ]; then
+       classification="Others"
+else
+       echo "Invalid classification input" 1>&2
+      exit 1
+fi 
+shift $((OPTIND -1)) 
+app_path=$(pwd | cut -d/ -f3-) 
+system_build_ver=$(echo $app_path | cut -d/ -f1) 
+if [[ $system_build_ver == "rl9c" || $system_build_ver == "rl9g" ]]; then
+  system_name="Ibex" 
+else
+  system_name="Shaheen" 
+fi 
+json=$(echo "{\"system_build_ver\":\"$system_build_ver\", \"system_name\":\"$system_name\", \"app_classification\":\"$classification\", \"app_name\":\"$(echo $app_path | cut -d/ -f2)\", \"app_version\":\"$(echo $app_path | cut -d/ -f3)\", \"app_compiler_ver\":\"$(echo $app_path | cut -d/ -f4)\", \"description\":\"$desc\"}") 
+dir1=$(echo $json | jq -r '.system_build_ver') 
+dir2=$(echo $json | jq -r '.app_name') 
+dir3=$(echo $json | jq -r '.app_version') 
+dir4=$(echo $json | jq -r '.app_compiler_ver') 
+class=$(echo $json | jq -r '.app_classification') 
+desc=$(echo $json | jq -r '.description') 
+name=$(echo $json | jq -r '.system_name') 
+echo "Path $app_path" 
+echo "System name: $system_name" 
+echo "System build: $dir1" 
+echo "App name: $dir2" 
+echo "App version: $dir3" 
+echo "App compiler ver: $dir4" 
+echo "Classification: $classification" 
+echo "Desc: $desc" echo $json > $system_name\_$dir2\_$dir3\_$dir4\_catalogue.json
