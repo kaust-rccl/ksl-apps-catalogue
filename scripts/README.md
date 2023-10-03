@@ -1,3 +1,5 @@
+![app_catalogue_Diagram](https://github.com/kaust-rccl/ksl-apps-catalogue/assets/141279506/9d8d966f-cea7-4321-adef-e11f5fe7a3b0)
+
 # Application JSON File Generation Workflow
 
 There are two main scripts to generate JSON files for the installed applications:
