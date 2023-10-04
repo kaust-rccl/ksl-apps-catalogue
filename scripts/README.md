@@ -23,8 +23,8 @@ The workflow for generating and updating the application JSON files is as follow
    - A nightly cron-job runs daily on the login node of Ibex/Shaheen to copy all the JSON files to the host machine of the HPC wiki.
 
 2. On the host machine of HPC wiki:
-   - A cron-job executes the "ingest_db.py" script to feed a database from the JSON files that were copied from the clusters.
-   - A pipeline executes after the previous script is done, pushing the new database to the "ksl-apps-catalogue" repository.
+   - A pipeline executes the "ingest_db.py" script to feed a database from the JSON files that were copied from the clusters, pushing the new database to
+     the "ksl-apps-catalogue" repository.
    - Reviewers are notified when a new push is committed to the "dev" branch. One of them has to pull it for review.
 
 3. Review Process:
