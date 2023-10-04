@@ -1,4 +1,5 @@
-![app_catalogue_Diagram](https://github.com/kaust-rccl/ksl-apps-catalogue/assets/141279506/9d8d966f-cea7-4321-adef-e11f5fe7a3b0)
+
+![Blank diagram(5)](https://github.com/kaust-rccl/ksl-apps-catalogue/assets/141279506/a5da6009-ef26-41a2-ab93-16a03af5b40f)
 
 # Application JSON File Generation Workflow
 
