@@ -1,0 +1,45 @@
+#!/bin/bash
+for path in "/sw/"*; do
+  if [ -d "$path" ]; then
+        build=$(basename $path)
+        if [[ $build == "ex109genoa" ]]; then
+          system_name="Shaheen"
+          build_ver=$build
+          for app in "$path"/*; do
+        if [ -d "$app" ]; then
+        app_name=$(basename $app)
+          if [[ $app_name != "compilers" && $app_name != "modulefiles" ]]; then
+            for ver in "$app"/*[0-9]*; do
+              if [ -d "$ver" ]; then
+                app_ver=$(basename $ver)
+                if [[ $app_name == "cuda" || $app_name == "intel" || $app_name == "ansys" ]]; then
+                  compiler_ver="binary"
+                                  json=$(echo "{\"system_build_ver\":\"$build_ver\", \"system_name\":\"$system_name\", \"app_classification\":\"\", \"app_name\":\"$app_name\", \"app_version\":\"$app_ver\", \"app_compiler_ver\":\"$app_compiler_ver\", \"description\":\"\"}")
+                                  echo $json > ~/Shaheen_json/$system_name\_$app_name\_$app_ver\_$compiler_ver\_catalogue.json
+                else
+                  for compiler_ver in "$ver"/*[0-9]*; do
+                    if [ -d "$compiler_ver" ]; then
+                      app_compiler_ver=$(basename $compiler_ver)
+                                          json=$(echo "{\"system_build_ver\":\"$build_ver\", \"system_name\":\"$system_name\", \"app_classification\":\"\", \"app_name\":\"$app_name\", \"app_version\":\"$app_ver\", \"app_compiler_ver\":\"$app_compiler_ver\", \"description\":\"\"}")
+                                          echo $json > ~/Shaheen_json/$system_name\_$app_name\_$app_ver\_$app_compiler_ver\_catalogue.json
+                    fi
+                  done
+                  for compiler_ver in "$ver"/*; do
+                    if [ -d "$compiler_ver" ]; then
+                      app_compiler_ver=$(basename $compiler_ver)
+                      if [[ $app_compiler_ver == "precompiled" ]]; then
+                        app_compiler_ver="binary"
+                        json=$(echo "{\"system_build_ver\":\"$build_ver\", \"system_name\":\"$system_name\", \"app_classification\":\"\", \"app_name\":\"$app_name\", \"app_version\":\"$app_ver\", \"app_compiler_ver\":\"$app_compiler_ver\", \"description\":\"\"}")
+                        echo $json > ~/Shaheen_json/$system_name\_$app_name\_$app_ver\_$app_compiler_ver\_catalogue.json
+                      fi
+                    fi
+                  done
+                fi
+              fi
+            done
+          fi
+        fi
+      done
+        fi
+  fi
+done
