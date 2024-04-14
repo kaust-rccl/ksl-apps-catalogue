@@ -4,21 +4,21 @@ from tabulate import tabulate
 
 # Copy the pages to the working directory
 
-src1 = '/user-docs/apps-catalogue/ibex.rst'
+src1 = '/home/mohamm0a/ibex.rst'
 dst1 = '.'
-src2 = '/user-docs/apps-catalogue/shaheen2.rst'
+src2 = '/home/mohamm0a/shaheen3.rst'
 dst2 = '.'
 
 shutil.copy(src1, dst1)
 shutil.copy(src2, dst2)
 
 # Connect to MySQL database
-cnx = mysql.connector.connect(user='root',
-                              host='localhost', database='catalogue')
+cnx = mysql.connector.connect(user='readthedocs',
+                              host='db2.hpc.kaust.edu.sa', password='thisisreadthedocspassword', database='Apps_catalogue')
 cursor = cnx.cursor()
 
 # Retrieve data from MySQL database
-ibex_query = ("SELECT * FROM apps")
+ibex_query = ("SELECT * FROM Apps")
 cursor.execute(ibex_query)
 rows = cursor.fetchall()
 
@@ -83,7 +83,7 @@ for classification in classifications:
   table = ""
 
   # Append RST table to file after specific text
-  filename = 'shaheen2.rst'
+  filename = 'shaheen3.rst'
   with open(filename, 'r+') as f:
        lines = f.readlines()
   # Find the index of the specific text
