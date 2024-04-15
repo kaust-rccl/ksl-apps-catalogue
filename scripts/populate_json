@@ -66,4 +66,5 @@ echo "App name: $dir2"
 echo "App version: $dir3" 
 echo "App compiler ver: $dir4" 
 echo "Classification: $classification" 
-echo "Desc: $desc" echo $json > $system_name\_$dir2\_$dir3\_$dir4\_catalogue.json
+echo "Desc: $desc" 
+echo $json > $system_name\_$dir2\_$dir3\_$dir4\_catalogue.json
