@@ -2,7 +2,7 @@
 for path in "/sw/"*; do
   if [ -d "$path" ]; then
         build=$(basename $path)
-        if [[ $build == "ex109genoa" ]]; then
+        if [[ $build == "ex111genoa" ]]; then
           system_name="Shaheen"
           build_ver=$build
           for app in "$path"/*; do
